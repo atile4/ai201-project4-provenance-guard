@@ -263,7 +263,7 @@ def generate_label(confidence: float) -> dict:
 # ── Routes ────────────────────────────────────────────────────────────────────
 
 @app.route("/submit", methods=["POST"])
-# M5 will add: @limiter.limit("10 per minute;100 per day")
+@limiter.limit("10 per minute;100 per day")
 def submit():
     """
     Accept a piece of text for attribution analysis.
@@ -333,6 +333,61 @@ def submit():
             "stylometric_score": stylometric_score,
             "stylometric_breakdown": stylo_breakdown,
         },
+    })
+
+
+@app.route("/appeal", methods=["POST"])
+def appeal():
+    """
+    Allow a creator to contest their content's classification.
+
+    Request body (JSON):
+        content_id         str — ID returned by /submit
+        creator_reasoning  str — the creator's explanation for why the label is wrong
+
+    What this does:
+        1. Flips the content's status from "classified" → "under_review"
+        2. Records the appeal reasoning and timestamp in the audit log entry
+        3. Returns a confirmation — no automated re-classification occurs
+
+    A human reviewer will see the original verdict, both signal scores, and
+    the creator's reasoning when they open the appeal queue via GET /log.
+    """
+    data = request.get_json(force=True, silent=True)
+    if not data:
+        return jsonify({"error": "Request body must be valid JSON."}), 400
+
+    content_id = (data.get("content_id") or "").strip()
+    creator_reasoning = (data.get("creator_reasoning") or "").strip()
+
+    if not content_id:
+        return jsonify({"error": "Missing required field: content_id"}), 400
+    if not creator_reasoning:
+        return jsonify({"error": "Missing required field: creator_reasoning"}), 400
+
+    appeal_timestamp = datetime.now(timezone.utc).isoformat()
+
+    updated = update_log_entry(content_id, {
+        "status": "under_review",
+        "appeal_reasoning": creator_reasoning,
+        "appeal_timestamp": appeal_timestamp,
+    })
+
+    if not updated:
+        return jsonify({
+            "error": f"No submission found with content_id '{content_id}'. "
+                     "Check the ID from your original /submit response."
+        }), 404
+
+    return jsonify({
+        "status": "under_review",
+        "content_id": content_id,
+        "appeal_timestamp": appeal_timestamp,
+        "message": (
+            "Your appeal has been received and is under review. "
+            "A human reviewer will examine your original submission alongside "
+            "your stated reasoning. No automated re-classification will occur."
+        ),
     })
 
 

@@ -67,9 +67,9 @@
       "expressive_punct_density": 0.0182,
       "punct_ai_score": 0.8788
     },
-    "status": "classified",
-    "appeal_reasoning": null,
-    "appeal_timestamp": null
+    "status": "under_review",
+    "appeal_reasoning": "I wrote this myself from personal experience. I am a non-native English speaker and my writing style may appear more formal than typical.",
+    "appeal_timestamp": "2026-06-29T03:30:03.093088+00:00"
   },
   {
     "content_id": "0f745691-431d-490a-8b3c-157683ae9082",
@@ -112,6 +112,186 @@
       "ttr_ai_score": 0.1,
       "expressive_punct_density": 0.05,
       "punct_ai_score": 0.6667
+    },
+    "status": "classified",
+    "appeal_reasoning": null,
+    "appeal_timestamp": null
+  },
+  {
+    "content_id": "294a2697-9e93-45ee-8c84-4d72fadc7cbd",
+    "creator_id": "ratelimit-test",
+    "timestamp": "2026-06-29T03:31:00.734036+00:00",
+    "attribution": "likely_human",
+    "confidence": 0.2,
+    "llm_score": 0.0,
+    "llm_reasoning": "The text is extremely brief and informal, with a conversational tone and lack of polish, suggesting it was written by a human.",
+    "stylometric_score": 0.5,
+    "stylometric_breakdown": {
+      "note": "text too short for reliable stylometric analysis",
+      "sentence_count": 1,
+      "word_count": 3
+    },
+    "status": "classified",
+    "appeal_reasoning": null,
+    "appeal_timestamp": null
+  },
+  {
+    "content_id": "f9ba5920-1469-420c-b09f-87827ac5df30",
+    "creator_id": "ratelimit-test",
+    "timestamp": "2026-06-29T03:31:01.349239+00:00",
+    "attribution": "likely_human",
+    "confidence": 0.2,
+    "llm_score": 0.0,
+    "llm_reasoning": "The text is extremely brief and informal, with a conversational tone and lack of polish, suggesting it was written by a human.",
+    "stylometric_score": 0.5,
+    "stylometric_breakdown": {
+      "note": "text too short for reliable stylometric analysis",
+      "sentence_count": 1,
+      "word_count": 3
+    },
+    "status": "classified",
+    "appeal_reasoning": null,
+    "appeal_timestamp": null
+  },
+  {
+    "content_id": "da758fe4-5bfd-40a7-8784-cfc5be2ddb8e",
+    "creator_id": "ratelimit-test",
+    "timestamp": "2026-06-29T03:31:01.819092+00:00",
+    "attribution": "likely_human",
+    "confidence": 0.2,
+    "llm_score": 0.0,
+    "llm_reasoning": "The text is extremely brief and informal, with a conversational tone and lack of polish, suggesting it was written by a human.",
+    "stylometric_score": 0.5,
+    "stylometric_breakdown": {
+      "note": "text too short for reliable stylometric analysis",
+      "sentence_count": 1,
+      "word_count": 3
+    },
+    "status": "classified",
+    "appeal_reasoning": null,
+    "appeal_timestamp": null
+  },
+  {
+    "content_id": "6abaa704-d4b8-4f27-9539-f5c771f16be5",
+    "creator_id": "ratelimit-test",
+    "timestamp": "2026-06-29T03:31:02.230631+00:00",
+    "attribution": "likely_human",
+    "confidence": 0.2,
+    "llm_score": 0.0,
+    "llm_reasoning": "The text is extremely brief and informal, with a conversational tone and lack of polish, suggesting it was written by a human.",
+    "stylometric_score": 0.5,
+    "stylometric_breakdown": {
+      "note": "text too short for reliable stylometric analysis",
+      "sentence_count": 1,
+      "word_count": 3
+    },
+    "status": "classified",
+    "appeal_reasoning": null,
+    "appeal_timestamp": null
+  },
+  {
+    "content_id": "a54aead6-8088-4177-9dbe-592a4b715e38",
+    "creator_id": "ratelimit-test",
+    "timestamp": "2026-06-29T03:31:02.917680+00:00",
+    "attribution": "likely_human",
+    "confidence": 0.2,
+    "llm_score": 0.0,
+    "llm_reasoning": "The text is extremely brief and informal, with a conversational tone and lack of polish, suggesting it was written by a human.",
+    "stylometric_score": 0.5,
+    "stylometric_breakdown": {
+      "note": "text too short for reliable stylometric analysis",
+      "sentence_count": 1,
+      "word_count": 3
+    },
+    "status": "classified",
+    "appeal_reasoning": null,
+    "appeal_timestamp": null
+  },
+  {
+    "content_id": "b64eec43-7bbf-4fe3-9723-d89f1877e5c2",
+    "creator_id": "ratelimit-test",
+    "timestamp": "2026-06-29T03:31:03.370711+00:00",
+    "attribution": "likely_human",
+    "confidence": 0.2,
+    "llm_score": 0.0,
+    "llm_reasoning": "The text is extremely brief and informal, with a conversational tone and lack of polish, suggesting it was written by a human.",
+    "stylometric_score": 0.5,
+    "stylometric_breakdown": {
+      "note": "text too short for reliable stylometric analysis",
+      "sentence_count": 1,
+      "word_count": 3
+    },
+    "status": "classified",
+    "appeal_reasoning": null,
+    "appeal_timestamp": null
+  },
+  {
+    "content_id": "24dfba1d-c4ef-41c4-abfe-2a6a89d85524",
+    "creator_id": "ratelimit-test",
+    "timestamp": "2026-06-29T03:31:03.831014+00:00",
+    "attribution": "likely_human",
+    "confidence": 0.2,
+    "llm_score": 0.0,
+    "llm_reasoning": "The text is extremely brief and informal, with a conversational tone and lack of polish, suggesting it was written by a human.",
+    "stylometric_score": 0.5,
+    "stylometric_breakdown": {
+      "note": "text too short for reliable stylometric analysis",
+      "sentence_count": 1,
+      "word_count": 3
+    },
+    "status": "classified",
+    "appeal_reasoning": null,
+    "appeal_timestamp": null
+  },
+  {
+    "content_id": "92fcfcec-6437-4f86-94e2-41c6ad1f3c75",
+    "creator_id": "ratelimit-test",
+    "timestamp": "2026-06-29T03:31:04.287930+00:00",
+    "attribution": "likely_human",
+    "confidence": 0.2,
+    "llm_score": 0.0,
+    "llm_reasoning": "The text is extremely brief and informal, with a conversational tone and lack of polish, suggesting it was written by a human.",
+    "stylometric_score": 0.5,
+    "stylometric_breakdown": {
+      "note": "text too short for reliable stylometric analysis",
+      "sentence_count": 1,
+      "word_count": 3
+    },
+    "status": "classified",
+    "appeal_reasoning": null,
+    "appeal_timestamp": null
+  },
+  {
+    "content_id": "4a5f795a-eb2b-4f82-8836-1aa087973a8a",
+    "creator_id": "ratelimit-test",
+    "timestamp": "2026-06-29T03:31:04.756649+00:00",
+    "attribution": "likely_human",
+    "confidence": 0.2,
+    "llm_score": 0.0,
+    "llm_reasoning": "The text is extremely brief and informal, with a conversational tone and lack of polish, suggesting it was written by a human.",
+    "stylometric_score": 0.5,
+    "stylometric_breakdown": {
+      "note": "text too short for reliable stylometric analysis",
+      "sentence_count": 1,
+      "word_count": 3
+    },
+    "status": "classified",
+    "appeal_reasoning": null,
+    "appeal_timestamp": null
+  },
+  {
+    "content_id": "bd5edef3-8a38-4e06-88eb-6b2cabb08ab0",
+    "creator_id": "ratelimit-test",
+    "timestamp": "2026-06-29T03:31:05.207500+00:00",
+    "attribution": "likely_human",
+    "confidence": 0.2,
+    "llm_score": 0.0,
+    "llm_reasoning": "The text is extremely brief and informal, with a conversational tone and lack of polish, suggesting it was written by a human.",
+    "stylometric_score": 0.5,
+    "stylometric_breakdown": {
+      "note": "text too short for reliable stylometric analysis",
+      "sentence_count": 1,
+      "word_count": 3
     },
     "status": "classified",
     "appeal_reasoning": null,
