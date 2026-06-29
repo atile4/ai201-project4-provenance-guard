@@ -127,22 +127,98 @@ Text to analyze:
     return score, reasoning
 
 
+# ── Signal 2: Stylometric Heuristics ─────────────────────────────────────────
+
+def signal_stylometric(text: str) -> tuple[float, dict]:
+    """
+    Measure statistical properties of text that differ between AI and human writing.
+
+    Captures: structural uniformity — things the LLM signal misses because it reasons
+    about meaning rather than raw form. AI tends to produce sentences of similar length
+    with consistent rhythm; human writing is messier and more varied.
+
+    Three metrics:
+      1. Sentence-length variance   — low std dev → uniform → AI
+      2. Type-token ratio (TTR)     — unique_words / total_words; lower → more repetitive → AI
+      3. Expressive punctuation     — !, ?, —, … etc.; lower density → AI
+
+    Blind spots: (1) short texts (< ~30 words) give unreliable statistics — the function
+    returns a neutral 0.5 in that case; (2) writers who naturally produce clean, uniform
+    prose (e.g. academic authors) may score higher than expected.
+
+    Returns:
+        score     float in [0.0, 1.0]  — 0 = structurally human-like, 1 = structurally AI-like
+        breakdown dict                 — individual metric values for audit log / debugging
+    """
+    import re
+    import math
+
+    # ── Tokenise ──
+    sentences = [s.strip() for s in re.split(r'[.!?]+', text) if s.strip()]
+    words = re.findall(r"\b[a-zA-Z']+\b", text.lower())
+
+    # Guard: too short to measure reliably
+    if len(sentences) < 2 or len(words) < 20:
+        return 0.5, {"note": "text too short for reliable stylometric analysis",
+                     "sentence_count": len(sentences), "word_count": len(words)}
+
+    # ── Metric 1: Sentence-length variance ──
+    # AI text → sentences cluster tightly around a mean → low std dev → high AI score
+    sent_lengths = [len(re.findall(r"\b[a-zA-Z']+\b", s)) for s in sentences]
+    mean_len = sum(sent_lengths) / len(sent_lengths)
+    variance = sum((l - mean_len) ** 2 for l in sent_lengths) / len(sent_lengths)
+    std_dev = math.sqrt(variance)
+
+    # Normalise: std_dev 0 → score 1.0 (very AI); std_dev ≥ 12 → score 0.0 (very human)
+    len_var_score = max(0.0, min(1.0, 1.0 - (std_dev / 12.0)))
+
+    # ── Metric 2: Type-token ratio (vocabulary diversity) ──
+    # Lower TTR → more word repetition → more AI-like
+    ttr = len(set(words)) / len(words)
+
+    # Normalise: TTR 1.0 → score 0.0 (diverse = human); TTR 0.3 → score 1.0 (repetitive = AI)
+    # Clamp so short-text TTR inflation doesn't break the range
+    ttr_score = max(0.0, min(1.0, 1.0 - ttr))
+
+    # ── Metric 3: Expressive punctuation density ──
+    # Humans use !, ?, —, –, …, ; more freely; AI sticks to . and ,
+    expressive = len(re.findall(r'[!?;:\-–—…]', text))
+    punct_density = expressive / len(words)
+
+    # Normalise: density 0 → score 1.0 (no expressiveness = AI); density ≥ 0.15 → score 0.0
+    punct_score = max(0.0, min(1.0, 1.0 - (punct_density / 0.15)))
+
+    # ── Combine three sub-scores with equal weight ──
+    combined = (len_var_score + ttr_score + punct_score) / 3.0
+
+    breakdown = {
+        "sentence_count": len(sentences),
+        "word_count": len(words),
+        "sentence_length_std_dev": round(std_dev, 2),
+        "len_variance_ai_score": round(len_var_score, 4),
+        "type_token_ratio": round(ttr, 4),
+        "ttr_ai_score": round(ttr_score, 4),
+        "expressive_punct_density": round(punct_density, 4),
+        "punct_ai_score": round(punct_score, 4),
+    }
+
+    return round(combined, 4), breakdown
+
+
 # ── Confidence Scoring ────────────────────────────────────────────────────────
-# M3 placeholder: only Signal 1 is wired in.
-# M4 will replace this with a weighted average of both signals.
 
-def compute_confidence(llm_score: float, stylometric_score: float | None = None) -> float:
+def compute_confidence(llm_score: float, stylometric_score: float) -> float:
     """
-    Combine signal scores into a single calibrated confidence score (0–1).
+    Combine both signal scores into a single calibrated confidence score (0–1).
 
-    M3: returns LLM score directly (Signal 2 not yet implemented).
-    M4: will apply weighted average → 0.6 * llm + 0.4 * stylometric.
+    Weights (from planning.md):
+        LLM signal         60% — holistic semantic judgement; stronger signal overall
+        Stylometric signal 40% — structural statistics; independent cross-check
+
+    The LLM is weighted higher because it captures meaning and tone, not just form.
+    A good writer with unusual structure shouldn't be over-penalised by stylometrics alone.
     """
-    if stylometric_score is None:
-        return llm_score  # Temporary until M4
-    # M4 will replace the line above with something like:
-    # return round(0.6 * llm_score + 0.4 * stylometric_score, 4)
-    return llm_score
+    return round(0.6 * llm_score + 0.4 * stylometric_score, 4)
 
 
 # ── Label Generator ───────────────────────────────────────────────────────────
@@ -218,13 +294,13 @@ def submit():
     content_id = str(uuid.uuid4())
     timestamp = datetime.now(timezone.utc).isoformat()
 
-    # ── Signal 1 ──
+    # ── Signal 1: LLM holistic check ──
     llm_score, llm_reasoning = signal_llm(text)
 
-    # ── Signal 2 placeholder (M4) ──
-    stylometric_score = None
+    # ── Signal 2: Stylometric heuristics ──
+    stylometric_score, stylo_breakdown = signal_stylometric(text)
 
-    # ── Combine into confidence ──
+    # ── Combine into confidence (60% LLM, 40% stylometric) ──
     confidence = compute_confidence(llm_score, stylometric_score)
 
     # ── Generate transparency label ──
@@ -236,10 +312,11 @@ def submit():
         "creator_id": creator_id,
         "timestamp": timestamp,
         "attribution": label_data["verdict"],
-        "confidence": round(confidence, 4),
+        "confidence": confidence,
         "llm_score": round(llm_score, 4),
         "llm_reasoning": llm_reasoning,
-        "stylometric_score": stylometric_score,  # None until M4
+        "stylometric_score": stylometric_score,
+        "stylometric_breakdown": stylo_breakdown,
         "status": "classified",
         "appeal_reasoning": None,
         "appeal_timestamp": None,
@@ -249,11 +326,12 @@ def submit():
     return jsonify({
         "content_id": content_id,
         "attribution": label_data["verdict"],
-        "confidence": round(confidence, 4),
+        "confidence": confidence,
         "label": label_data["label"],
         "signals": {
             "llm_score": round(llm_score, 4),
-            "stylometric_score": stylometric_score,  # None until M4
+            "stylometric_score": stylometric_score,
+            "stylometric_breakdown": stylo_breakdown,
         },
     })
 

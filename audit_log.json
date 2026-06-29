@@ -24,5 +24,97 @@
     "status": "classified",
     "appeal_reasoning": null,
     "appeal_timestamp": null
+  },
+  {
+    "content_id": "f78e9861-d00f-4b32-bdef-17b0b7b192d5",
+    "creator_id": "test-ai",
+    "timestamp": "2026-06-29T03:07:56.238722+00:00",
+    "attribution": "likely_ai",
+    "confidence": 0.7618,
+    "llm_score": 0.9,
+    "llm_reasoning": "The text exhibits a uniform sentence rhythm, polished tone, and generic phrasing, such as 'it is important to note' and 'various', which are characteristic of AI-generated text.",
+    "stylometric_score": 0.5544,
+    "stylometric_breakdown": {
+      "sentence_count": 3,
+      "word_count": 43,
+      "sentence_length_std_dev": 5.44,
+      "len_variance_ai_score": 0.547,
+      "type_token_ratio": 0.8837,
+      "ttr_ai_score": 0.1163,
+      "expressive_punct_density": 0.0,
+      "punct_ai_score": 1.0
+    },
+    "status": "classified",
+    "appeal_reasoning": null,
+    "appeal_timestamp": null
+  },
+  {
+    "content_id": "abc840c9-6cd9-4c25-8dff-1e261a7da417",
+    "creator_id": "test-human",
+    "timestamp": "2026-06-29T03:08:21.017742+00:00",
+    "attribution": "likely_human",
+    "confidence": 0.1928,
+    "llm_score": 0.0,
+    "llm_reasoning": "The text features irregular sentence length, colloquial language, and personal anecdotes, which are all characteristic of human-written text.",
+    "stylometric_score": 0.4819,
+    "stylometric_breakdown": {
+      "sentence_count": 5,
+      "word_count": 55,
+      "sentence_length_std_dev": 6.72,
+      "len_variance_ai_score": 0.4397,
+      "type_token_ratio": 0.8727,
+      "ttr_ai_score": 0.1273,
+      "expressive_punct_density": 0.0182,
+      "punct_ai_score": 0.8788
+    },
+    "status": "classified",
+    "appeal_reasoning": null,
+    "appeal_timestamp": null
+  },
+  {
+    "content_id": "0f745691-431d-490a-8b3c-157683ae9082",
+    "creator_id": "test-border-1",
+    "timestamp": "2026-06-29T03:08:29.723185+00:00",
+    "attribution": "likely_ai",
+    "confidence": 0.7042,
+    "llm_score": 0.8,
+    "llm_reasoning": "The text exhibits a polished and formal tone, uniform sentence structure, and generic phrasing, which are characteristic of AI-generated text, but lacks sufficient context to be absolutely certain.",
+    "stylometric_score": 0.5604,
+    "stylometric_breakdown": {
+      "sentence_count": 2,
+      "word_count": 43,
+      "sentence_length_std_dev": 5.5,
+      "len_variance_ai_score": 0.5417,
+      "type_token_ratio": 0.8605,
+      "ttr_ai_score": 0.1395,
+      "expressive_punct_density": 0.0,
+      "punct_ai_score": 1.0
+    },
+    "status": "classified",
+    "appeal_reasoning": null,
+    "appeal_timestamp": null
+  },
+  {
+    "content_id": "26dfb49f-998d-4685-bd28-01dfa9cb00cf",
+    "creator_id": "test-border-2",
+    "timestamp": "2026-06-29T03:08:46.240708+00:00",
+    "attribution": "likely_human",
+    "confidence": 0.3032,
+    "llm_score": 0.2,
+    "llm_reasoning": "The text has a personal and informal tone, with the author sharing their thoughts and using phrases like 'I have been thinking a lot', which suggests a human-written origin.",
+    "stylometric_score": 0.4579,
+    "stylometric_breakdown": {
+      "sentence_count": 3,
+      "word_count": 40,
+      "sentence_length_std_dev": 4.71,
+      "len_variance_ai_score": 0.6072,
+      "type_token_ratio": 0.9,
+      "ttr_ai_score": 0.1,
+      "expressive_punct_density": 0.05,
+      "punct_ai_score": 0.6667
+    },
+    "status": "classified",
+    "appeal_reasoning": null,
+    "appeal_timestamp": null
   }
 ]
