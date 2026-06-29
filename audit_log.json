@@ -1,0 +1,28 @@
+[
+  {
+    "content_id": "11bead4b-eaf9-4036-9d91-74c8db2459e3",
+    "creator_id": "test-user-1",
+    "timestamp": "2026-06-27T23:59:19.690741+00:00",
+    "attribution": "likely_human",
+    "confidence": 0.0,
+    "llm_score": 0.0,
+    "llm_reasoning": "The text features descriptive language, personal perspective, and a relaxed tone, which are characteristic of human writing.",
+    "stylometric_score": null,
+    "status": "classified",
+    "appeal_reasoning": null,
+    "appeal_timestamp": null
+  },
+  {
+    "content_id": "3e12d173-37b8-4b85-a411-3a3d69c48f29",
+    "creator_id": "test-user-2",
+    "timestamp": "2026-06-27T23:59:42.872045+00:00",
+    "attribution": "likely_ai",
+    "confidence": 0.9,
+    "llm_score": 0.9,
+    "llm_reasoning": "The text exhibits a polished but impersonal tone, uniform sentence structure, and generic phrasing, such as 'it is important to note', which are characteristic of AI-generated text.",
+    "stylometric_score": null,
+    "status": "classified",
+    "appeal_reasoning": null,
+    "appeal_timestamp": null
+  }
+]
